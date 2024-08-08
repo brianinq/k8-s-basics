@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: replica-one
+  labels:
+    app: my-app
+    type: proxy
+spec:
+  template:
+    metadata:
+      name: nginx-app
+      labels:
+        type: nginx-app-proxy
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+  replicas: 3
+  selector:
+    matchLabels:
+      type: nginx-app-proxy
